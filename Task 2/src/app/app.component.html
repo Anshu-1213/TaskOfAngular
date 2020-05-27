@@ -1,0 +1,15 @@
+table border = "1" align = "center">
+  <tr>
+   < <td>First Name</td>
+    <td>Last Name</td>
+    <td>Age</td>
+    <td>Mobile Number</td>
+  </tr>
+  <tr *ngFor = "let obj of model">
+      <td>{{obj.firstName}}</td>
+      <td>{{obj.lastName}}</td>
+      <td>{{obj.age}}</td>
+      <td>{{obj.mbNum}}</td>
+  </tr>
+</table>
+  
