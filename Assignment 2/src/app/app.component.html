@@ -1,0 +1,10 @@
+<div style =" margin: auto;
+ width: 50%;
+ border: 3px solid green;
+ padding: 10px;  ">
+
+  <select> 
+    <option *ngFor = 'let name of users' [value] = "name.Id">
+    {{name.Name | CustomUser: name.Id}}
+    </option>
+  </select>
