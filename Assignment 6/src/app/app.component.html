@@ -1,0 +1,92 @@
+<div class="container-fluid">
+  <h2>Registration Form</h2>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" [class.is-invalid]="userName.invalid && userName.touched" formControlName="userName" class="form-control">
+      <div *ngIf="userName.invalid && userName.touched">
+        <small class="text-danger" *ngIf="userName.errors?.required">Username is required</small>
+        <small class="text-danger" *ngIf="userName.errors?.minlength">Username must be at least 3 characters</small>
+        <small class="text-danger" *ngIf="userName.errors?.text">Must be a character</small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" formControlName="pass" class="form-control" [class.is-invalid]="pass.invalid && pass.touched">
+      <div *ngIf="pass.invalid && pass.touched">
+        <small class="text-danger" *ngIf="pass.errors?.required">Password is required</small>
+        <small class="text-danger" *ngIf="pass.errors?.minlength">Password must be at least 6 characters</small>
+      </div>
+    </div>
+
+    <div class="form-group"> 
+      <label>Email</label>
+      <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmail()">+</button>
+      <input type = "text" class="form-control" formControlName="email" [class.is-invalid]="email.invalid && email.touched"> 
+      <div *ngIf="email.invalid && email.touched">
+        <small class="text-danger" *ngIf="email.errors?.required">Email is required</small>
+        <small class="text-danger" *ngIf="email.errors?.email">Must be a valid email</small>
+      </div>
+      <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
+        <input type="text" class="form-control my-1" [formControlName]="i">
+        <button type="button" class="btn btn-secondary btn-sm m-2" (click)="removeEmail(i)">-</button>
+      </div>
+    </div>
+
+    
+    <div class="mb-3">
+      <label gender>Gender</label>
+      <div class="form-check">
+        <input type="radio" formControlName="gndr" value="m"  name="gndr"  [class.is-invalid]=" userName.touched || email.touched || pass.touched" >Male 
+        <div *ngIf="userName.touched || email.touched || pass.touched">
+          <small class="text-danger" *ngIf="gndr.errors?.required">Gender is required</small>
+        </div>
+      </div>
+      <div class="form-check">
+      <label>
+        <input type="radio"  formControlName="gndr" value="f" name ="gndr" [class.is-invalid]="userName.touched || email.touched || pass.touched" >Female
+        <div *ngIf="userName.touched || email.touched || pass.touched">
+          <small class="text-danger" *ngIf="gndr.errors?.required">Gender is required</small>
+        </div>
+      </label>  
+      </div>
+    </div>
+    
+
+
+    <div class="form-group">
+      <label for="sel1">Select Language:</label>
+      <select class="form-control" id="sel1" formControlName='se'  [class.is-invalid]=" userName.touched || email.touched || pass.touched || gndr.touched">
+        <div *ngIf="userName.touched || email.touched || pass.touched || gndr.touched">
+          <small class="text-danger" *ngIf="select.errors?.required">Language  is required</small>
+        </div>
+        <option>c</option>
+        <option>jse</option>
+        <option>jee</option>
+        <option>C++</option>
+      </select>
+    </div>
+
+    
+
+    <div class="col-12">
+      <div>
+        <label for="" class="form-label">Favourite Food</label>
+      </div>
+      <div class="form-check form-check-inline" *ngFor="let control of fruitsArray.controls; let i = index;">
+        <input class="form-check-input" type="checkbox"  
+        (change)="getSelectedFruitsValue()"
+        [formControl] = "control"
+        id="inlineCheckbox{{i}}">
+        <label class="form-check-label" for="inlineCheckbox{{i}}">{{fruits[i]}}</label>
+      </div>
+    </div>
+
+
+    <button class="btn btn-primary"  type="submit">Register</button>
+    <button  (click)="loadAPIData()" class="btn btn-secondary ml-2" type="button"  *ngIf = "isEdit">Load API Data</button>
+
+  </form>
+</div>
