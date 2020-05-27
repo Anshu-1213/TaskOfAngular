@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-content white-text">
+          <div class="row">
+            <div class="col s5">
+              <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+                <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="FirstName" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.FirstName" placeholder="Enter full name" required>
+                    <label>First Name
+                      <label class="red-text">*</label>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="text" name="LastName" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.LastName" placeholder="Eg : Snr. Developer">
+                    <label>LastName</label>
+                  </div>
+                </div>
+          
+                
+                <div class="row">
+                  <div class="input-field col s12">
+                    <!-- <button class="btn btn-custom right" type="button" (click)="resetForm(employeeForm)">Reset</button> -->
+                    <button class="btn btn-custom right" type="submit" [disabled]="!employeeForm.valid">Submit</button>
+                  </div>
+                </div>
+              </form>
+               </div>
+              <div class="col s7">
+                <table class="responsive-table highlight">
+                    <thead>
+                      <tr>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+              
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let emp of employeeService.employees">
+                      <td>{{emp.FirstName}}</td>
+                      <td>{{emp.LastName}}</td>
+                     
+                      <td>
+                          <a class="action-btn" (click)="onEdit(emp)">
+                            <i class="material-icons">edit</i>
+                          </a>
+                          <a class="action-btn" (click)="onDelete(emp._id,employeeForm)">
+                            <i class="material-icons">delete</i>
+                          </a>
+                        </td>
+                    </tr>
+                  </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </div> 
